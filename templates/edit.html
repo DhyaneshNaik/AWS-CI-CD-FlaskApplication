@@ -1,0 +1,21 @@
+{% extends "layout.html" %}
+
+{% block body %}
+
+<div class="row">
+    <div class="col-md-4 offset-md-4">
+        <div class="card card-body">
+            <form action = "/update/{{data[0]}}" method="POST">
+                <div class="form-group">
+                    <input type="text" name="fname" class="form-control" value="{{data[1]}}"><br/>
+                    <input type="text" name="lname" class="form-control" value="{{data[2]}}"><br/>
+                    <input type="text" name="email" class="form-control" value="{{data[3]}}"><br/>
+                    <input type="text" name="phone" class="form-control" value="{{data[4]}}"><br/>
+                    <button type="submit" class="btn btn-primary mb-2">update Employee</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
