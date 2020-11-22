@@ -1,8 +1,8 @@
 from flask import Flask,render_template,request,redirect,url_for,flash
 from flask_mysqldb import MySQL
 
-application = app = Flask(__name__)
-app.secret_key = "dhyanesh-naik"
+application = Flask(__name__)
+application.secret_key = "dhyanesh-naik"
 
 # use while onnecting with local MySQL database
 #app.config["MYSQL_USER"] = "root"
@@ -12,15 +12,15 @@ app.secret_key = "dhyanesh-naik"
 #app.config["MYSQL_CURSORCLASS"] = 'DictCursor'
 
 # use while connecting with AWS MySQL database
-app.config["MYSQL_HOST"] = "userdetails.ck2j6hk9ucgh.ap-south-1.rds.amazonaws.com"
-app.config["MYSQL_USER"] = "admin"
-app.config["MYSQL_PASSWORD"] = "Sunitanaik0497"
-app.config["MYSQL_DB"] = "UserDetails"
-app.config["MYSQL_CURSORCLASS"] = 'DictCursor'
+application.config["MYSQL_HOST"] = "userdetails.ck2j6hk9ucgh.ap-south-1.rds.amazonaws.com"
+application.config["MYSQL_USER"] = "admin"
+application.config["MYSQL_PASSWORD"] = "Sunitanaik0497"
+application.config["MYSQL_DB"] = "UserDetails"
+application.config["MYSQL_CURSORCLASS"] = 'DictCursor'
 
-mysql = MySQL(app)
+mysql = MySQL(application)
 
-@app.route("/")
+@application.route("/")
 def index():
     conn = mysql.connection.cursor()
     conn.execute("select * from Employees")
@@ -28,7 +28,7 @@ def index():
     conn.close()
     return render_template("index.html",employee=data)
 
-@app.route("/add_employee",methods=['POST'])
+@application.route("/add_employee",methods=['POST'])
 def add_employee():
     conn = mysql.connection.cursor()
     try:
@@ -47,7 +47,7 @@ def add_employee():
     finally:
         conn.close()
 
-@app.route("/edit/<int:id>",methods=['POST','GET'])
+@application.route("/edit/<int:id>",methods=['POST','GET'])
 def get_employee(id):
     conn = mysql.connection.cursor()
     conn.execute(f"select * from Employees where id = {id}")
@@ -55,7 +55,7 @@ def get_employee(id):
     conn.close()
     return render_template("edit.html",data=data)
 
-@app.route("/update/<id>",methods=['POST'])
+@application.route("/update/<id>",methods=['POST'])
 def update_employee(id):
     conn = mysql.connection.cursor()
     try:
@@ -75,7 +75,7 @@ def update_employee(id):
         conn.close()
 
 
-@app.route("/delete/<id>")
+@application.route("/delete/<id>")
 def delete_employee(id):
     conn = mysql.connection.cursor()
     conn.execute(f"delete from Employees where id = {id}")
@@ -85,4 +85,4 @@ def delete_employee(id):
     return redirect(url_for("index"))
 
 if __name__ == "__main__":
-    app.run()#debug=True
+    application.run()#debug=True
