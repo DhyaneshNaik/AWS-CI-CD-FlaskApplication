@@ -1,7 +1,7 @@
 from flask import Flask,render_template,request,redirect,url_for,flash
 from flask_mysqldb import MySQL
 
-app = Flask(__name__)
+application = app = Flask(__name__)
 app.secret_key = "dhyanesh-naik"
 
 # use while onnecting with local MySQL database
@@ -85,4 +85,4 @@ def delete_employee(id):
     return redirect(url_for("index"))
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run()#debug=True
